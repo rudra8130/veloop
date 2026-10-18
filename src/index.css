@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0B0F1A;
+  --color-surface: #121829;
+  --color-surface-2: #1A2236;
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-ink: #F3F5FA;
+  --color-muted: #8E97AD;
+  --color-brand: #4F7CFF;
+  /* swap for VELOOP's real brand color */
+  --color-reward: #E8B54A;
+  /* prizes and winners only */
+  --color-success: #2FBF8F;
+  --color-danger: #E5584F;
+  --color-warn: #F0A63A;
+
+  --radius-card: 16px;
+  --shadow-card: 0 10px 30px rgb(0 0 0 / 0.35);
+  --shadow-glow: 0 0 0 1px rgb(79 124 255 / 0.35), 0 8px 32px rgb(79 124 255 / 0.18);
+
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+body {
+  @apply bg-bg text-ink font-sans antialiased;
+}
