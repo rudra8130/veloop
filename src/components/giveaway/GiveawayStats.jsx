@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { animate, motion, useInView, useReducedMotion } from 'framer-motion'
 import { Clock, Gift, Trophy, Users, Zap } from 'lucide-react'
-import useCountdown from '../../hooks/UseCountDown'
+import useCountdown from '../../hooks/useCountdown'
 
 /* Dummy data. Replace with API values later. */
 const STATS = [
