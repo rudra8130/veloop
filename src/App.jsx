@@ -8,6 +8,8 @@ import GiveawayBanner from './components/giveaway/Banner'
 import FeaturedGiveaways from './components/giveaway/FeaturedGiveaways'
 import { giveaways } from './data/giveaways'
 import HowToParticipate from './components/giveaway/HowToParticipate'
+import WinnerAnnouncementSlider from './components/giveaway/WinnerSlider'
+
 
 const STATUSES = ['upcoming', 'live', 'ending_soon', 'entered', 'closed', 'winners_announced']
 
@@ -52,6 +54,9 @@ export default function App() {
 
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <GiveawayStats />
+        <div className="mt-5">
+          <WinnerAnnouncementSlider />
+        </div>
       </div>
 
       <main id="giveaways" className="mx-auto w-full max-w-7xl scroll-mt-8 px-4 py-14 sm:px-6 lg:px-8">
