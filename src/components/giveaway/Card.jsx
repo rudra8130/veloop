@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import { ArrowRight, Check, Clock, ShieldCheck, Ticket, Users } from 'lucide-react'
+import { ArrowRight, Check, Clock, Lock, ShieldCheck, Ticket, Trophy, Users } from 'lucide-react'
 import useCountdown from '../../hooks/useCountdown.js'
 import PrizeArt from '../../art/PrizeArt'
 
@@ -45,6 +45,8 @@ export default function GiveawayCard({ prize, entered = false, onJoin, index = 0
     const a = ACCENT[prize.accent] ?? ACCENT.gold
     const Icon = s.icon
     const timeLabel = upcoming ? 'Starts in' : status === 'closed' ? 'Closed' : 'Remaining'
+    // Same rule as winnersFor(): 1st Prize is always one winner, others read winnersCount.
+    const winners = prize.position === '1st Prize' ? 1 : Math.max(1, Number(prize.winnersCount) || 1)
 
     return (
         <motion.article
@@ -104,17 +106,17 @@ export default function GiveawayCard({ prize, entered = false, onJoin, index = 0
 
             {/* Card Content Details */}
             <div className="flex flex-1 flex-col p-4 sm:p-5">
-                <div className="flex items-center justify-between gap-2">
-                    <h3 className="text-sm sm:text-base font-bold text-white tracking-tight truncate group-hover:text-violet-200 transition-colors">
-                        {prize.name}
-                    </h3>
-                    <div className="flex items-center gap-1 text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20 shrink-0">
-                        <ShieldCheck className="size-3" />
-                        Verified
-                    </div>
+                {/* Full prize name: wraps to a second line, never cut off with "..." */}
+                <h3 className="min-h-[2.75rem] break-words text-base font-bold leading-snug tracking-tight text-white transition-colors group-hover:text-violet-200 sm:min-h-[3.25rem] sm:text-lg">
+                    {prize.name}
+                </h3>
+
+                <div className="mt-1.5 inline-flex w-fit items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[11px] font-semibold text-emerald-400">
+                    <ShieldCheck className="size-3" aria-hidden="true" />
+                    Verified prize
                 </div>
 
-                <p className="mt-1 line-clamp-2 min-h-[2.25rem] text-xs leading-relaxed text-slate-400">
+                <p className="mt-2.5 line-clamp-2 min-h-[2.25rem] text-xs leading-relaxed text-slate-400">
                     {prize.description}
                 </p>
 
@@ -140,14 +142,21 @@ export default function GiveawayCard({ prize, entered = false, onJoin, index = 0
                     </div>
                 </div>
 
-                {/* Entry Requirement Tag */}
-                {prize.entry && (
-                    <div className="mt-2.5 flex items-center gap-1.5 text-xs text-slate-300">
-                        <Ticket className="size-3.5 text-amber-400 shrink-0" aria-hidden="true" />
-                        <span className="text-slate-400 font-medium shrink-0">Requirement:</span>
-                        <span className="truncate text-slate-200">{prize.entry}</span>
-                    </div>
-                )}
+                {/* Requirement and winners */}
+                <ul className="mt-2.5 space-y-1.5 text-xs text-slate-300">
+                    {prize.entry && (
+                        <li className="flex items-start gap-1.5">
+                            <Ticket className="mt-0.5 size-3.5 shrink-0 text-amber-400" aria-hidden="true" />
+                            <span className="shrink-0 font-medium text-slate-400">Requirement:</span>
+                            <span className="text-slate-200">{prize.entry}</span>
+                        </li>
+                    )}
+                    <li className="flex items-start gap-1.5">
+                        <Trophy className="mt-0.5 size-3.5 shrink-0 text-amber-400" aria-hidden="true" />
+                        <span className="shrink-0 font-medium text-slate-400">Winners:</span>
+                        <span className="text-slate-200">{winners} {winners === 1 ? 'winner' : 'winners'}</span>
+                    </li>
+                </ul>
 
                 {/* Action Button Section - Improved clean padding and text layout */}
                 <div className="mt-auto pt-4">
@@ -167,6 +176,11 @@ export default function GiveawayCard({ prize, entered = false, onJoin, index = 0
                             />
                         )}
                     </motion.button>
+
+                    <p className="mt-2.5 flex items-center justify-center gap-1.5 text-[11px] text-slate-500">
+                        <Lock className="size-3" aria-hidden="true" />
+                        Random draw. Winners announced publicly.
+                    </p>
                 </div>
             </div>
         </motion.article>

@@ -9,8 +9,11 @@ import FeaturedGiveaways from './components/giveaway/FeaturedGiveaways'
 import { giveaways } from './data/giveaways'
 import HowToParticipate from './components/giveaway/HowToParticipate'
 import WinnerAnnouncementSlider from './components/giveaway/WinnerSlider'
+import * as Tabs from '@radix-ui/react-tabs'
+import WinnersTab from './components/giveaway/WinnersTab'
 
 
+const CAMPAIGN_STATES = ['upcoming', 'live', 'ending_soon', 'closed', 'winners_announced', 'next_giveaway']
 const STATUSES = ['upcoming', 'live', 'ending_soon', 'entered', 'closed', 'winners_announced']
 
 export default function App() {
@@ -18,6 +21,8 @@ export default function App() {
   const [open, setOpen] = useState(false)
   const [step, setStep] = useState('confirm') // confirm | loading | success
   const [agreed, setAgreed] = useState(false)
+  const [tab, setTab] = useState('giveaways')
+  const [campaign, setCampaign] = useState('live') // overall giveaway state, drives the Winners tab
   const [selected, setSelected] = useState(null) // prize chosen from a card, null = general entry
   const [enteredIds, setEnteredIds] = useState([])
 
@@ -60,35 +65,65 @@ export default function App() {
       </div>
 
       <main id="giveaways" className="mx-auto w-full max-w-7xl scroll-mt-8 px-4 py-14 sm:px-6 lg:px-8">
-        <FeaturedGiveaways giveaways={giveaways} enteredIds={enteredIds} onJoin={handleJoinPrize} />
+        <Tabs.Root value={tab} onValueChange={setTab}>
+          <Tabs.List
+            aria-label="Giveaway sections"
+            className="mb-8 inline-flex rounded-xl border border-white/10 bg-[#0d0a22] p-1"
+          >
+            {[['giveaways', '🎁 Giveaways'], ['winners', '🏆 Winners']].map(([value, label]) => (
+              <Tabs.Trigger
+                key={value}
+                value={value}
+                className="rounded-lg px-5 py-2 text-sm font-semibold text-slate-400 transition hover:text-white
+                           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300
+                           data-[state=active]:bg-violet-500/20 data-[state=active]:text-white"
+              >
+                {label}
+              </Tabs.Trigger>
+            ))}
+          </Tabs.List>
 
-        <div className="mt-14">
-          <HowToParticipate onViewRules={() => { /* open rules modal later */ }} />
-        </div>
+          <Tabs.Content value="giveaways" className="focus-visible:outline-none">
+            <FeaturedGiveaways giveaways={giveaways} enteredIds={enteredIds} onJoin={handleJoinPrize} />
 
-        <div id="all-giveaways" className="mt-14 scroll-mt-8">
-          <GiveawayBanner status={status} onAction={handleAction} />
-        </div>
+            <div className="mt-14">
+              <HowToParticipate onViewRules={() => { /* open rules modal later */ }} />
+            </div>
 
-        {/* Dev-only: preview every status. Remove before shipping. */}
-        <div className="mt-6 flex flex-wrap items-center gap-2 text-xs">
-          <span className="text-slate-500">Preview status:</span>
-          {STATUSES.map((s) => (
-            <button
-              key={s}
-              type="button"
-              onClick={() => setStatus(s)}
-              className={`rounded-full border px-3 py-1 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 ${status === s
-                ? 'border-violet-400 bg-violet-500/20 text-violet-200'
-                : 'border-white/10 text-slate-400 hover:border-white/25'
-                }`}
-            >
-              {s}
-            </button>
+            <div id="all-giveaways" className="mt-14 scroll-mt-8">
+              <GiveawayBanner status={status} onAction={handleAction} />
+            </div>
+          </Tabs.Content>
+
+          <Tabs.Content value="winners" className="focus-visible:outline-none">
+            <WinnersTab status={campaign} giveaways={giveaways} onBrowse={() => setTab('giveaways')} />
+          </Tabs.Content>
+        </Tabs.Root>
+
+        {/* Dev-only: preview states. Remove before shipping. */}
+        <div className="mt-10 space-y-2 text-xs">
+          {[
+            ['Banner status:', STATUSES, status, setStatus],
+            ['Giveaway state (Winners tab):', CAMPAIGN_STATES, campaign, setCampaign],
+          ].map(([label, list, value, set]) => (
+            <div key={label} className="flex flex-wrap items-center gap-2">
+              <span className="text-slate-500">{label}</span>
+              {list.map((x) => (
+                <button
+                  key={x}
+                  type="button"
+                  onClick={() => set(x)}
+                  className={`rounded-full border px-3 py-1 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 ${value === x
+                    ? 'border-violet-400 bg-violet-500/20 text-violet-200'
+                    : 'border-white/10 text-slate-400 hover:border-white/25'
+                    }`}
+                >
+                  {x}
+                </button>
+              ))}
+            </div>
           ))}
         </div>
-
-        {/* Next: Winner slider, Giveaway grid, How it works, Winners, Previous winners, FAQ */}
       </main>
 
       <Dialog.Root open={open} onOpenChange={setOpen}>

@@ -7,7 +7,7 @@
   --color-line: rgb(255 255 255 / 0.08);
   --color-ink: #F3F5FA;
   --color-muted: #8E97AD;
-  --color-brand: #4F7CFF;
+  --color-brand: #8B5CF6;
   /* swap for VELOOP's real brand color */
   --color-reward: #E8B54A;
   /* prizes and winners only */
@@ -24,4 +24,8 @@
 
 body {
   @apply bg-bg text-ink font-sans antialiased;
+}
+
+html {
+  scroll-behavior: smooth;
 }

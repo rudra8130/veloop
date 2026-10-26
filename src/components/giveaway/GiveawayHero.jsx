@@ -156,7 +156,7 @@ export default function GiveawayHero({ onJoin, joined = false }) {
 
                     <motion.div
                         variants={item}
-                        className="mt-8 flex flex-col items-stretch gap-3.5 sm:flex-row sm:justify-center lg:justify-start"
+                        className="m-8  flex flex-col items-stretch gap-3.5 sm:flex-row sm:justify-center "
                     >
                         <motion.button
                             type="button"
@@ -164,13 +164,13 @@ export default function GiveawayHero({ onJoin, joined = false }) {
                             disabled={joined}
                             whileHover={joined ? undefined : { scale: 1.02 }}
                             whileTap={joined ? undefined : { scale: 0.98 }}
-                            className="group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-xl
-                            bg-gradient-to-r from-violet-600 via-indigo-600 to-violet-600 bg-[length:200%_auto] px-8 py-4 text-sm sm:text-base font-bold text-white
-                            shadow-[0_10px_30px_rgb(109,40,217,0.4)] transition-all duration-300 hover:bg-[position:right_center] hover:shadow-[0_14px_40px_rgb(109,40,217,0.6)]
-                            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300
-                            focus-visible:ring-offset-2 focus-visible:ring-offset-[#070514]
-                            disabled:cursor-not-allowed disabled:from-slate-800 disabled:to-slate-800
-                            disabled:text-slate-400 disabled:shadow-none"
+                            className="group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full
+    bg-gradient-to-r from-violet-600 via-indigo-600 to-violet-600 bg-[length:200%_auto] px-8 py-2.5 text-sm sm:text-base font-bold text-white
+    shadow-[0_10px_30px_rgb(109,40,217,0.4)] transition-all duration-300 hover:bg-[position:right_center] hover:shadow-[0_14px_40px_rgb(109,40,217,0.6)]
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300
+    focus-visible:ring-offset-2 focus-visible:ring-offset-[#070514]
+    disabled:cursor-not-allowed disabled:from-slate-800 disabled:to-slate-800
+    disabled:text-slate-400 disabled:shadow-none"
                         >
                             {joined ? <Check className="size-5" aria-hidden="true" /> : <Gift className="size-5 text-violet-200" aria-hidden="true" />}
                             <span className="relative tracking-wide">{joined ? "You're in" : 'Join Giveaway Now'}</span>
@@ -194,7 +194,7 @@ export default function GiveawayHero({ onJoin, joined = false }) {
 
                     <motion.ul
                         variants={item}
-                        className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 text-sm text-slate-400 lg:justify-start font-medium"
+                        className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 text-sm text-slate-400  font-medium"
                     >
                         {CHECKS.map((c) => (
                             <li key={c} className="inline-flex items-center gap-2">
