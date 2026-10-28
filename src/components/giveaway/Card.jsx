@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight, Check, Clock, Lock, ShieldCheck, Ticket, Trophy, Users } from 'lucide-react'
 import useCountdown from '../../hooks/useCountdown.js'
@@ -31,6 +32,7 @@ function formatLeft({ d, h, m, s, isOver }) {
 
 export default function GiveawayCard({ prize, entered = false, onJoin, index = 0 }) {
     const reduce = useReducedMotion()
+    const [imgError, setImgError] = useState(false)
     const upcoming = prize.status === 'upcoming'
     const time = useCountdown(upcoming ? prize.startsAt : prize.endsAt)
 
@@ -88,11 +90,12 @@ export default function GiveawayCard({ prize, entered = false, onJoin, index = 0
 
                 {/* Prize Artwork or Image */}
                 <div className="relative flex h-full items-center justify-center transition-transform duration-500 ease-out group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100">
-                    {prize.image ? (
+                    {prize.image && !imgError ? (
                         <img
                             src={prize.image}
                             alt={prize.name}
                             loading="lazy"
+                            onError={() => setImgError(true)}
                             className="max-h-full max-w-full object-contain drop-shadow-[0_16px_24px_rgb(0_0_0/0.7)]"
                         />
                     ) : (

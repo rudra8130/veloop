@@ -1,4 +1,6 @@
-
+import phoneImg from '../assets/giveaway/phone.png'
+import watchImg from '../assets/giveaway/watch.png'
+import amazonCardImg from '../assets/giveaway/amazoncard.png'
 
 const MIN = 60 * 1000
 const at = (d, h = 0, m = 0) => Date.now() + ((d * 24 + h) * 60 + m) * MIN
@@ -11,7 +13,7 @@ export const giveaways = [
         name: 'iPhone 15 Pro',
         description: 'Latest iPhone 15 Pro, 128GB in Natural Titanium.',
         art: 'phone',
-        image: null,
+        image: phoneImg,
         participants: 2300,
         startsAt: at(-2),
         endsAt: at(12, 8, 45),
@@ -26,7 +28,7 @@ export const giveaways = [
         name: 'Apple Watch Series 9',
         description: 'Series 9 GPS, 45mm with an always-on display.',
         art: 'watch',
-        image: null,
+        image: watchImg,
         participants: 1800,
         startsAt: at(-3),
         endsAt: at(9, 6, 30),
@@ -56,7 +58,7 @@ export const giveaways = [
         name: 'Amazon Gift Card',
         description: '₹2,000 gift card, delivered as a digital code.',
         art: 'giftcard',
-        image: null,
+        image: amazonCardImg,
         participants: 1300,
         startsAt: at(-1),
         endsAt: at(5, 0, 15),
