@@ -34,7 +34,7 @@ const MONGODB_URL = process.env.MONGODB_URL || 'mongodb+srv://rudraknit81_db_use
 
 // Middleware
 app.use(cors({
-  origin: 'https://veloop-sigma.vercel.app/',
+  origin: 'https://veloop-sigma.vercel.app',
   credentials: true,
 }));
 app.use(express.json());
