@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@theme {
+  /* Core Palette - Deep Slate / Midnight Theme */
+  --color-bg: #07090e;
+  --color-surface: #0e1320;
+  --color-surface-2: #161d30;
+  --color-surface-hover: #1e2740;
+
+  --color-line: rgba(255, 255, 255, 0.06);
+  --color-line-focus: rgba(99, 102, 241, 0.4);
+
+  --color-ink: #f8fafc;
+  --color-muted: #94a3b8;
+  --color-subtle: #64748b;
+
+  /* Brand & Accents - Refined Neon & Electric Indigo */
+  --color-brand: #6366f1;
+  --color-brand-hover: #4f46e5;
+  --color-reward: #0ea5e9;
+
+  /* Status Colors */
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+  --color-warn: #f59e0b;
+
+  /* Geometry & Elevation */
+  --radius-card: 12px;
+  --radius-button: 8px;
+
+  --shadow-subtle: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 2px -1px rgba(0, 0, 0, 0.2);
+  --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 25px -5px rgba(99, 102, 241, 0.25);
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-bg text-ink font-sans antialiased selection:bg-brand selection:text-white;
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.04) 0%, transparent 50%);
+  min-height: 100vh;
+}
+
+/* Custom Scrollbar for Professional Feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-subtle);
+}
