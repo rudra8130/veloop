@@ -34,7 +34,7 @@ const MONGODB_URL = process.env.MONGODB_URL || 'mongodb+srv://rudraknit81_db_use
 
 // Middleware
 app.use(cors({
-  origin: '*',
+  origin: 'https://veloop-iivj.onrender.com/',
   credentials: true,
 }));
 app.use(express.json());
@@ -321,13 +321,13 @@ app.post('/api/claims/submit', authenticateToken, async (req, res) => {
       shippingDetails: isDigital
         ? {}
         : {
-            fullName: shippingDetails.fullName.trim(),
-            phone: shippingDetails.phone.trim(),
-            address: shippingDetails.address.trim(),
-            city: shippingDetails.city.trim(),
-            state: shippingDetails.state.trim(),
-            pinCode: shippingDetails.pinCode.trim(),
-          },
+          fullName: shippingDetails.fullName.trim(),
+          phone: shippingDetails.phone.trim(),
+          address: shippingDetails.address.trim(),
+          city: shippingDetails.city.trim(),
+          state: shippingDetails.state.trim(),
+          pinCode: shippingDetails.pinCode.trim(),
+        },
       digitalDeliveryEmail: isDigital ? digitalDeliveryEmail.trim().toLowerCase() : undefined,
       claimStatus: 'submitted',
       ipAddress: req.ip || req.headers['x-forwarded-for'] || '',
