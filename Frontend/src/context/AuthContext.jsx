@@ -2,6 +2,9 @@ import { createContext, useContext, useState, useEffect, useCallback } from 'rea
 
 const AuthContext = createContext(null);
 
+// Render backend base URL (fallback to localhost for local development)
+const API_BASE_URL = 'https://veloop-iivj.onrender.com';
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(() => localStorage.getItem('veloop_token'));
@@ -16,7 +19,7 @@ export function AuthProvider({ children }) {
     }
 
     try {
-      const res = await fetch('/api/auth/me', {
+      const res = await fetch(`${API_BASE_URL}/api/auth/me`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -45,7 +48,7 @@ export function AuthProvider({ children }) {
   // Login handler
   const login = async (identifier, password) => {
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,7 +75,7 @@ export function AuthProvider({ children }) {
   // Signup handler
   const signup = async (username, email, password) => {
     try {
-      const res = await fetch('/api/auth/signup', {
+      const res = await fetch(`${API_BASE_URL}/api/auth/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +113,7 @@ export function AuthProvider({ children }) {
     }
 
     try {
-      const res = await fetch('/api/giveaways/enter', {
+      const res = await fetch(`${API_BASE_URL}/api/giveaways/enter`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -142,7 +145,7 @@ export function AuthProvider({ children }) {
     }
 
     try {
-      const res = await fetch('/api/claims/submit', {
+      const res = await fetch(`${API_BASE_URL}/api/claims/submit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -177,7 +180,7 @@ export function AuthProvider({ children }) {
     if (!token) return { success: false, error: 'Not authenticated' };
 
     try {
-      const res = await fetch('/api/user/set-winner', {
+      const res = await fetch(`${API_BASE_URL}/api/user/set-winner`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
